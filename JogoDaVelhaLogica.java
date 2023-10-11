@@ -81,13 +81,20 @@ public class JogoDaVelhaLogica{
                     exibirJogo(matriz);
                     andamento = false; 
                     if (cont % 2 == 0) {
-                        criarCSV(pato, cont);
+                        System.out.print("Digite seu nome, vencedor: ");
+                        String player = pato.nextLine();
+                        int pontuacao = 9 - cont * 100;
+                        criarCSV(player, pontuacao);
                     }
                 }
                 else if (cont == 9) {
                     exibirJogo(matriz);
                     andamento = false;
                     System.out.println("Empate!!!!");
+                    System.out.print("Digite seu nome, jogador (X): ");
+                    String player = pato.nextLine();
+                    int pontuacao = 50;
+                    criarCSV(player, pontuacao);
                 }
             }
         }
@@ -126,11 +133,21 @@ public class JogoDaVelhaLogica{
             if (cont >= 5) {
                 if (verificarJogo(matriz)) {
                     andamento = false;
-                    criarCSV(pato, cont);
+                    System.out.print("Digite seu nome, vencedor: ");
+                    String player = pato.nextLine();
+                    int pontuacao = 9 - cont * 100;
+                    criarCSV(player, pontuacao);
                 }
                 else if (cont == 9) {
                     System.out.println("Empate!!!!");
                     andamento = false;
+                    System.out.print("Digite seu nome, jogador (X): ");
+                    String player = pato.nextLine();
+                    int pontuacao = 50;
+                    criarCSV(player, pontuacao);
+                    System.out.print("Digite seu nome, jogador (O): ");
+                    player = pato.nextLine();
+                    criarCSV(player, pontuacao);
                 }
             }
         }
@@ -182,11 +199,9 @@ public class JogoDaVelhaLogica{
         return false;
     }
 
-    public static void criarCSV(Scanner pato, int cont){
-        System.out.print("Digite seu nome, vencedor: ");
-        String player = pato.nextLine();
-        int pontuacao = 9 - cont * 100;
-        String nomeArquivo = "jogadores.csv";
+    public static void criarCSV(String player, int pontuacao){
+        
+        String nomeArquivo = "C:\\Users\\henry\\OneDrive\\Documentos\\GitHub\\Jogo-da-Velha-Java\\jogadores.csv";
         try (Writer writer = new FileWriter(nomeArquivo)) {
             writer.write("Nome, Pontuação\n");
             writer.write(player + ", " + pontuacao);
