@@ -205,7 +205,7 @@ public class JogoDaVelhaLogica{
             if (new File(nomeArquivo).length() == 0) {
                 writer.write("Nome, Pontos\n");
             }
-            writer.write(player + ", " + pontuacao + "\n");
+            writer.write("\n" + player + ", " + pontuacao + "\n");
             writer.close();
             System.out.println("Arquivo CSV criado com sucesso!\n");
         } catch (IOException e){e.printStackTrace();}
