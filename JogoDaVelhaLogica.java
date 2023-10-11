@@ -82,7 +82,7 @@ public class JogoDaVelhaLogica{
                     if (cont % 2 != 0) {
                         System.out.print("Digite seu nome, vencedor: ");
                         String player = pato.next();
-                        int pontuacao = 9 - cont * 100;
+                        int pontuacao = (9 - cont) * 100;
                         criarCSV(player, pontuacao);
                     }
                     andamento = false;
@@ -135,7 +135,7 @@ public class JogoDaVelhaLogica{
                     andamento = false;
                     System.out.print("Digite seu nome, vencedor: ");
                     String player = pato.next();
-                    int pontuacao = 9 - cont * 100;
+                    int pontuacao = (9 - cont) * 100;
                     criarCSV(player, pontuacao);
                 }
                 else if (cont == 9) {
