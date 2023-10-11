@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.Random;
+import java.io.*;
 public class JogoDaVelhaLogica{
     public static void main(String[] args) {
         Scanner pato = new Scanner (System.in);
@@ -79,6 +80,9 @@ public class JogoDaVelhaLogica{
                 if (verificarJogo(matriz)){
                     exibirJogo(matriz);
                     andamento = false; 
+                    if (cont % 2 == 0) {
+                        criarCSV(pato, cont);
+                    }
                 }
                 else if (cont == 9) {
                     exibirJogo(matriz);
@@ -120,7 +124,10 @@ public class JogoDaVelhaLogica{
             exibirJogo(matriz);
             cont++;
             if (cont >= 5) {
-                if (verificarJogo(matriz)) {andamento = false;}
+                if (verificarJogo(matriz)) {
+                    andamento = false;
+                    criarCSV(pato, cont);
+                }
                 else if (cont == 9) {
                     System.out.println("Empate!!!!");
                     andamento = false;
@@ -175,6 +182,18 @@ public class JogoDaVelhaLogica{
         return false;
     }
 
+    public static void criarCSV(Scanner pato, int cont){
+        System.out.print("Digite seu nome, vencedor: ");
+        String player = pato.nextLine();
+        int pontuacao = 9 - cont * 100;
+        String nomeArquivo = "jogadores.csv";
+        try (Writer writer = new FileWriter(nomeArquivo)) {
+            writer.write("Nome, Pontuação\n");
+            writer.write(player + ", " + pontuacao);
+            writer.close();
+            System.out.println("Arquivo CSV criado/modificado com sucesso!\n");
+        } catch (IOException e){e.printStackTrace();}
+    }
     public static void funcionamento(){
         System.out.println();
         System.out.println("FUNCIONAMENTO DO JOGO DA VELHA: \n\tO jogador (X) é o primeiro a jogar em seguida o jogador (O), no caso contra o computador (O).\n\tO jogador irá digitar a posição por linha x coluna.\n\tEx: Digite jogador (X):\n\t0 (é a posição da linha)\n\t1 (é a posição da coluna)\n\tResultado:\n ");
