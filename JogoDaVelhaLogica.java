@@ -207,7 +207,7 @@ public class JogoDaVelhaLogica{
             }
             writer.write("\n" + player + ", " + pontuacao + "\n");
             writer.close();
-            System.out.println("Arquivo CSV criado com sucesso!\n");
+            System.out.println("Arquivo CSV criado/modificado com sucesso!\n");
         } catch (IOException e){e.printStackTrace();}
     }
     public static void funcionamento(){
