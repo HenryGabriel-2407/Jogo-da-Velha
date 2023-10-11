@@ -16,13 +16,11 @@ public class JogoDaVelhaLogica{
                     doisJogadores(pato);
                     break;
                 case 3:
-                    funcionamento(pato);
+                    funcionamento();
                     break;
                 case 4:
-                    pato.nextLine();
                     System.out.println("Tchau!!!");
                     menu = false;
-                    
                     break;
                 default:
                     System.out.println("Opção Inválida.");
@@ -177,13 +175,12 @@ public class JogoDaVelhaLogica{
         return false;
     }
 
-    public static void funcionamento(Scanner pato){
+    public static void funcionamento(){
         System.out.println();
         System.out.println("FUNCIONAMENTO DO JOGO DA VELHA: \n\tO jogador (X) é o primeiro a jogar em seguida o jogador (O), no caso contra o computador (O).\n\tO jogador irá digitar a posição por linha x coluna.\n\tEx: Digite jogador (X):\n\t0 (é a posição da linha)\n\t1 (é a posição da coluna)\n\tResultado:\n ");
         char [][] matriz = {{' ','X',' '},{' ',' ',' '},{' ',' ',' '}};
         exibirJogo(matriz);
-        System.out.print("E quem completar uma linha, coluna, ou diagonal com mesmo caractere vence o jogo\nDigite qualquer tecla para ir no menu:");
-        String resposta = pato.nextLine();
+        System.out.println("E quem completar uma linha, coluna, ou diagonal com mesmo caractere vence o jogo\n");
         main(null);
     }
 }
