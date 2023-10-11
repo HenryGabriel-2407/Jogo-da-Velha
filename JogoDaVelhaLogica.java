@@ -98,7 +98,6 @@ public class JogoDaVelhaLogica{
                 }
             }
         }
-        main(null);
     }
     
     public static void doisJogadores(Scanner pato){
@@ -151,7 +150,6 @@ public class JogoDaVelhaLogica{
                 }
             }
         }
-        main(null);
     }
 
     public static boolean verificarJogo(char[][] matriz){
@@ -216,6 +214,5 @@ public class JogoDaVelhaLogica{
         char [][] matriz = {{' ','X',' '},{' ',' ',' '},{' ',' ',' '}};
         exibirJogo(matriz);
         System.out.println("E quem completar uma linha, coluna, ou diagonal com mesmo caractere vence o jogo\n");
-        main(null);
     }
 }
