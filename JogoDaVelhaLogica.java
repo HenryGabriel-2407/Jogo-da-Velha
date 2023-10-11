@@ -79,7 +79,7 @@ public class JogoDaVelhaLogica{
             if (cont >= 5) {
                 if (verificarJogo(matriz)){
                     exibirJogo(matriz);
-                    if (cont % 2 == 0) {
+                    if (cont % 2 != 0) {
                         System.out.print("Digite seu nome, vencedor: ");
                         String player = pato.next();
                         int pontuacao = 9 - cont * 100;
