@@ -202,7 +202,7 @@ public class JogoDaVelhaLogica{
     public static void criarCSV(String player, int pontuacao){
         String nomeArquivo = "C:\\Users\\henry\\OneDrive\\Documentos\\GitHub\\Jogo-da-Velha-Java\\jogadores.csv";
         try (Writer writer = new FileWriter(nomeArquivo, true)) {
-            if (new File(nomeArquivo).length == 0) {
+            if (new File(nomeArquivo).length() == 0) {
                 writer.write("Nome, Pontos\n");
             }
             writer.write(player + ", " + pontuacao + "\n");
