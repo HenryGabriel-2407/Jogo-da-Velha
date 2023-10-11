@@ -79,20 +79,20 @@ public class JogoDaVelhaLogica{
             if (cont >= 5) {
                 if (verificarJogo(matriz)){
                     exibirJogo(matriz);
-                    andamento = false; 
                     if (cont % 2 == 0) {
                         System.out.print("Digite seu nome, vencedor: ");
-                        String player = pato.nextLine();
+                        String player = pato.next();
                         int pontuacao = 9 - cont * 100;
                         criarCSV(player, pontuacao);
                     }
+                    andamento = false;
                 }
                 else if (cont == 9) {
                     exibirJogo(matriz);
                     andamento = false;
                     System.out.println("Empate!!!!");
                     System.out.print("Digite seu nome, jogador (X): ");
-                    String player = pato.nextLine();
+                    String player = pato.next();
                     int pontuacao = 50;
                     criarCSV(player, pontuacao);
                 }
@@ -134,7 +134,7 @@ public class JogoDaVelhaLogica{
                 if (verificarJogo(matriz)) {
                     andamento = false;
                     System.out.print("Digite seu nome, vencedor: ");
-                    String player = pato.nextLine();
+                    String player = pato.next();
                     int pontuacao = 9 - cont * 100;
                     criarCSV(player, pontuacao);
                 }
@@ -142,11 +142,11 @@ public class JogoDaVelhaLogica{
                     System.out.println("Empate!!!!");
                     andamento = false;
                     System.out.print("Digite seu nome, jogador (X): ");
-                    String player = pato.nextLine();
+                    String player = pato.next();
                     int pontuacao = 50;
                     criarCSV(player, pontuacao);
                     System.out.print("Digite seu nome, jogador (O): ");
-                    player = pato.nextLine();
+                    player = pato.next();
                     criarCSV(player, pontuacao);
                 }
             }
