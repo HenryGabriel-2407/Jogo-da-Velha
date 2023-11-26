@@ -66,13 +66,16 @@ public class ModoAmigos{
                     turnoX = !turnoX;
                     pontuacao--;
                     empate++;
-                    if (verificarJogo() == true && turnoX == true){
-                        JOptionPane.showMessageDialog(frame, nome_Amigo1 + " venceu a partida!!!");
-                        armazenarPontuacaoX(nome_Amigo1, pontuacao);
-                    } else if (verificarJogo() == true && turnoX == false){
-                        JOptionPane.showMessageDialog(frame, nome_Amigo2 + " venceu a partida!!!");
-                        armazenarPontuacaoY(nome_Amigo2, pontuacao);
-                    } else if (empate == 9){
+                    if (verificarJogo()){
+                        if(turnoX == false){
+                            JOptionPane.showMessageDialog(frame, nome_Amigo1 + " venceu a partida!!! Ganhou "+pontuacao*100+" pontos!!");
+                            armazenarPontuacaoX(nome_Amigo1, pontuacao);
+                        } else {
+                            JOptionPane.showMessageDialog(frame, nome_Amigo2 + " venceu a partida!!! Ganhou "+pontuacao*100+" pontos!!");
+                            armazenarPontuacaoY(nome_Amigo2, pontuacao);
+                        }
+                        limpar();
+                    } else if (empate >= 9){
                             JOptionPane.showMessageDialog(frame, nome_Amigo1 + " e "+ nome_Amigo2 + " empataram a partida!!!");
                             pontuacao = 1;
                             armazenarPontuacaoX(nome_Amigo1, pontuacao);
@@ -109,8 +112,8 @@ public class ModoAmigos{
         if (!patos[0].getText().equals(" ") && patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
             limpar();
             return true;
-        } else if (!patos[2].getText().equals(" ") && patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
-            JOptionPane.showMessageDialog(frame, patos[2].getText() + " Ganhou!!!");
+        } 
+        if (!patos[2].getText().equals(" ") && patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
             limpar();
             return true;
         }

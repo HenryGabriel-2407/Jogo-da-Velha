@@ -1,4 +1,4 @@
-//  O que falta: verificar diagonais e empate; e parece JOption do computador 
+//  O que falta: verificar diagonais e empate;
 // importação
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -72,8 +72,8 @@ public class ModoOtaku{
                         pato.setEnabled(false);
                         turnoX = !turnoX;
                         pontuacao--;
-                        if(verificarJogo() == true && turnoX == true){
-                            JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao+" pontos!");
+                        if(verificarJogo() == true && turnoX == false){
+                            JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao * 100+" pontos!");
                             armazenarPontuacao(nome__otaku, pontuacao);
                             limpar();
                         }
@@ -98,13 +98,12 @@ public class ModoOtaku{
         } while (!patos[jogadaComputador].isEnabled());
         patos[jogadaComputador].setText("O");
         patos[jogadaComputador].setEnabled(false);
-        if(verificarJogo() == true && turnoX == false){
+        turnoX = !turnoX;
+        pontuacao--;
+        if(verificarJogo() == true && turnoX == true){
             JOptionPane.showMessageDialog(frame, "Computador ganhou!");
             limpar();
         }
-        turnoX = !turnoX;
-        pontuacao--;
-        
     }
 
     public boolean verificarJogo(){
@@ -123,7 +122,8 @@ public class ModoOtaku{
         //verficar diagonais
         if (!patos[0].getText().equals(" ") && patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
             return true;
-        } else if (!patos[2].getText().equals(" ") && patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
+        } 
+        if (!patos[2].getText().equals(" ") && patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
             return true;
         }
         return false;

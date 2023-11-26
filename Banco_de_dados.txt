@@ -1,2 +1,5 @@
 João,20
-Henry,704
+Henry,1404
+Peixe,1600
+Kaio,400
+Lagosta,300
