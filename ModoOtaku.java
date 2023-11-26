@@ -98,6 +98,10 @@ public class ModoOtaku{
         } while (!patos[jogadaComputador].isEnabled());
         patos[jogadaComputador].setText("O");
         patos[jogadaComputador].setEnabled(false);
+        if(verificarJogo() == true && turnoX == false){
+            JOptionPane.showMessageDialog(frame, "Computador ganhou!");
+            limpar();
+        }
         turnoX = !turnoX;
         pontuacao--;
         
@@ -107,35 +111,19 @@ public class ModoOtaku{
         //verificar linha
         for(int i = 0; i < 9; i+=3){
             if(patos[i].getText().equals(patos[i+1].getText()) && patos[i].getText().equals(patos[i+2].getText()) && !patos[i].isEnabled()){
-                if(patos[i].getText().equals("O")){
-                    JOptionPane.showMessageDialog(frame, "Computador ganhou!");
-                    limpar();
-                }
                 return true;
             }
         }
         //verificar coluna
         for(int i = 0; i < 9; i++){
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
-                if(patos[i].getText().equals("O")){
-                    JOptionPane.showMessageDialog(frame, "Computador ganhou!");
-                    limpar();
-                }
                 return true;
             }
         }
         //verficar diagonais
         if (!patos[0].getText().equals(" ") && patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
-            if(patos[0].getText().equals("O")){
-                JOptionPane.showMessageDialog(frame, "Computador ganhou!");
-                limpar();
-            }
             return true;
         } else if (!patos[2].getText().equals(" ") && patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
-            if(patos[2].getText().equals("O")){
-                JOptionPane.showMessageDialog(frame, "Computador ganhou!");
-                limpar();
-            }
             return true;
         }
         return false;
