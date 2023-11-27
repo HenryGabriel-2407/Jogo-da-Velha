@@ -1,4 +1,4 @@
-//  O que falta: verificar empate;
+//  O que falta: verificar empate; Mensagem que o computador ganhou;
 // importação
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -65,7 +65,6 @@ public class ModoOtaku{
             }
         });
         //Jogadas
-        
         for (int i = 0; i < 9; i++) {
             patos[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e){
@@ -73,31 +72,37 @@ public class ModoOtaku{
                     if(turnoX){
                         pato.setText("X");
                         pato.setEnabled(false);
+                        turnoX = !turnoX;
+                        pontuacao--;
+                        empate++;
                     } else{
                         do {
                             jogadaComputador = random.nextInt(9);
                         } while (!patos[jogadaComputador].isEnabled());
                         patos[jogadaComputador].setText("O");
                         patos[jogadaComputador].setEnabled(false);
-                    }
-                    turnoX = !turnoX;
-                    pontuacao--;
-                    empate++;
+                        turnoX = !turnoX;
+                        pontuacao--;
+                        empate++;
                     
-                    if(verificarJogo() || verificarColuna()){
-                        if(turnoX){
-                            JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao * 100+" pontos!");
-                            armazenarPontuacao(nome__otaku, pontuacao);
-                        } else if(!turnoX){
-                            JOptionPane.showMessageDialog(frame, "Computador ganhou!");
+                        if(verificarJogo() || verificarColuna()){
+                            if(turnoX){
+                                JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao * 100+" pontos!");
+                                armazenarPontuacao(nome__otaku, pontuacao);
+                                limpar();
+                                pontuacao = 10;
+                            } else if(!turnoX){
+                                JOptionPane.showMessageDialog(frame, "Computador ganhou!");
+                                limpar();
+                                pontuacao = 10;
+                            }
+                        } else if(verificarEmpate()){
+                            System.out.println("Empate");
+                            JOptionPane.showMessageDialog(frame, "Empate! Você ganhou 100 pontos!");
+                            armazenarPontuacao(nome__otaku, 1);
+                            limpar();
+                            pontuacao = 10;
                         }
-                        pontuacao = 10;
-                        limpar();
-                    } else if(verificarEmpate()){
-                        JOptionPane.showMessageDialog(frame, "Empate! Você ganhou 100 pontos!");
-                        armazenarPontuacao(nome__otaku, 1);
-                        pontuacao = 10;
-                        limpar();
                     }
                 }
             });
@@ -125,15 +130,12 @@ public class ModoOtaku{
             else if (patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
                 limpar();
                 return true;
-            }
-            else{
-                return false;
-            }            
+            }          
         } //verificar coluna
         return false;
     }
     public boolean verificarColuna(){
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 3; i++) {
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
                 limpar();
                 return true;
@@ -142,17 +144,14 @@ public class ModoOtaku{
         return false;
     }
     public boolean verificarEmpate(){
-        int cont = 0;
+        boolean todosPreenchidos = true; 
         for (int i = 0; i < 9; i++) {
-            if (!patos[i].isEnabled()) {
-                cont++;
-            }
-            if(cont >= 8 && verificarColuna() == false && verificarJogo() == false){
-                cont = 0;
-                return true;
+            if (patos[i].isEnabled()) {
+                todosPreenchidos = false;
+                break;
             }
         }
-        return false;
+        return todosPreenchidos && !verificarColuna() && !verificarJogo();
     }
     public void limpar(){
         for(int i=0; i<9; i++) {

@@ -1,4 +1,4 @@
-//  O que falta: verificar empate; 
+//  O que falta: verificar empate; E mensagem que amigo1 ganhou;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,10 +64,10 @@ public class ModoAmigos{
                     turnoX = !turnoX;
                     pontuacao--;
                     if (verificarJogo() || verificarColuna()){
-                        if(turnoX){
+                        if(!turnoX){
                             JOptionPane.showMessageDialog(frame, nome_Amigo1 + " venceu a partida!!! Ganhou "+pontuacao*100+" pontos!!");
                             armazenarPontuacaoX(nome_Amigo1, pontuacao);
-                        } else {
+                        } else if (turnoX) {
                             JOptionPane.showMessageDialog(frame, nome_Amigo2 + " venceu a partida!!! Ganhou "+pontuacao*100+" pontos!!");
                             armazenarPontuacaoY(nome_Amigo2, pontuacao);
                         }
@@ -108,16 +108,12 @@ public class ModoAmigos{
             else if (patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
                 limpar();
                 return true;
-            }
-            else{
-                return false;
-            }            
+            }          
         } //verificar coluna
-        
         return false;
     }
     public boolean verificarColuna(){
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 3; i++) {
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
                 limpar();
                 return true;
