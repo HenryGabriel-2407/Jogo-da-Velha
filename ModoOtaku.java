@@ -1,4 +1,4 @@
-//  O que falta: verificar empate; Mensagem que o computador ganhou;
+//  O que falta: Mensagem que o jogador ganhou;
 // importação
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,7 +29,6 @@ public class ModoOtaku{
     JButton patos[] = new JButton[9];
     Random random = new Random();
     int jogadaComputador;
-    int empate = 1;
     ModoOtaku(){
         //Criar a janela e barra de menu
         nome__otaku = JOptionPane.showInputDialog(null, "Digite o seu nome Naruto:");
@@ -69,13 +68,12 @@ public class ModoOtaku{
             patos[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e){
                     JButton pato = (JButton) e.getSource();
-                    if(turnoX){
+                    if(turnoX){ //turno do jogador
                         pato.setText("X");
                         pato.setEnabled(false);
                         turnoX = !turnoX;
                         pontuacao--;
-                        empate++;
-                    } else{
+                    } else{ //turno do computador
                         do {
                             jogadaComputador = random.nextInt(9);
                         } while (!patos[jogadaComputador].isEnabled());
@@ -83,26 +81,22 @@ public class ModoOtaku{
                         patos[jogadaComputador].setEnabled(false);
                         turnoX = !turnoX;
                         pontuacao--;
-                        empate++;
-                    
-                        if(verificarJogo() || verificarColuna()){
-                            if(turnoX){
-                                JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao * 100+" pontos!");
-                                armazenarPontuacao(nome__otaku, pontuacao);
-                                limpar();
-                                pontuacao = 10;
-                            } else if(!turnoX){
-                                JOptionPane.showMessageDialog(frame, "Computador ganhou!");
-                                limpar();
-                                pontuacao = 10;
-                            }
-                        } else if(verificarEmpate()){
-                            System.out.println("Empate");
-                            JOptionPane.showMessageDialog(frame, "Empate! Você ganhou 100 pontos!");
-                            armazenarPontuacao(nome__otaku, 1);
-                            limpar();
-                            pontuacao = 10;
+                    }
+                    if(verificarJogo() || verificarColuna()){
+                        if(!turnoX){
+                            JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao * 100+" pontos!");
+                            armazenarPontuacao(nome__otaku, pontuacao);
+                        } else if (turnoX){
+                            JOptionPane.showMessageDialog(frame, "Computador ganhou!");
                         }
+                        limpar();
+                        pontuacao = 10;
+                    } 
+                    if(verificarEmpate()){
+                        JOptionPane.showMessageDialog(frame, "Empate! Você ganhou 100 pontos!");
+                        armazenarPontuacao(nome__otaku, 1);
+                        limpar();
+                        pontuacao = 10;                
                     }
                 }
             });
