@@ -16,7 +16,6 @@ public class ModoAmigos{
     boolean turnoX = true;
     JButton patos[] = new JButton[9];
     int pontuacao = 9;
-    int empate = 1;
     String nome_Amigo1, nome_Amigo2;
     ModoAmigos(){
         nome_Amigo1 = JOptionPane.showInputDialog(null, "Digite o seu nome, jogador X:");
@@ -41,7 +40,6 @@ public class ModoAmigos{
             patos[i].setFont(new Font("Arial", Font.PLAIN, 40));
             panel.add(patos[i]);
         }
-
         sair.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 System.exit(0);
@@ -65,9 +63,8 @@ public class ModoAmigos{
                     pato.setEnabled(false);
                     turnoX = !turnoX;
                     pontuacao--;
-                    empate++;
-                    if (verificarJogo()){
-                        if(turnoX == false){
+                    if (verificarJogo() || verificarColuna()){
+                        if(turnoX == true){
                             JOptionPane.showMessageDialog(frame, nome_Amigo1 + " venceu a partida!!! Ganhou "+pontuacao*100+" pontos!!");
                             armazenarPontuacaoX(nome_Amigo1, pontuacao);
                         } else {
@@ -75,16 +72,19 @@ public class ModoAmigos{
                             armazenarPontuacaoY(nome_Amigo2, pontuacao);
                         }
                         limpar();
-                    } else if (empate >= 9){
-                            JOptionPane.showMessageDialog(frame, nome_Amigo1 + " e "+ nome_Amigo2 + " empataram a partida!!!");
-                            pontuacao = 1;
-                            armazenarPontuacaoX(nome_Amigo1, pontuacao);
-                            armazenarPontuacaoY(nome_Amigo2, pontuacao);
-                            limpar();
+                        pontuacao = 10;
+                    } 
+                    if (verificarEmpate()){
+                        JOptionPane.showMessageDialog(frame, nome_Amigo1 + " e " + nome_Amigo2+" empataram a partida!!! Ganharam 100 pontos!!");
+                        armazenarPontuacaoX(nome_Amigo1, 1);
+                        armazenarPontuacaoY(nome_Amigo2, 1);
+                        limpar();
+                        pontuacao = 10;
                     }
                 }
             });
         }
+
         fileJMenu.add(inicio);
         fileJMenu.add(sair);
         menu.add(fileJMenu);
@@ -92,30 +92,49 @@ public class ModoAmigos{
         frame.add(panel, BorderLayout.CENTER);
     }     
     
-
     public boolean verificarJogo(){
         //verificar linha
-        for(int i = 0; i < 9; i+=3){
+        for(int i = 0; i < 9; i += 3){
             if(patos[i].getText().equals(patos[i+1].getText()) && patos[i].getText().equals(patos[i+2].getText()) && !patos[i].isEnabled()){
                 limpar();
                 return true;
             }
-        }
-        //verificar coluna
-        for(int i = 0; i < 9; i++){
+        //verificar diagonal principal
+            else if (patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
+                limpar();
+                return true;
+            } 
+        // verificar diagonal secundária
+            else if (patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
+                limpar();
+                return true;
+            }
+            else{
+                return false;
+            }            
+        } //verificar coluna
+        
+        return false;
+    }
+    public boolean verificarColuna(){
+        for (int i = 0; i < 9; i++) {
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
                 limpar();
                 return true;
             }
         }
-        //verficar diagonais
-        if (!patos[0].getText().equals(" ") && patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
-            limpar();
-            return true;
-        } 
-        if (!patos[2].getText().equals(" ") && patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
-            limpar();
-            return true;
+        return false;
+    }
+    public boolean verificarEmpate(){
+        int cont = 0;
+        for (int i = 0; i < 9; i++) {
+            if (!patos[i].isEnabled()) {
+                cont++;
+            }
+            if(cont >= 8){
+                cont = 0;
+                return true;
+            }
         }
         return false;
     }
@@ -126,9 +145,11 @@ public class ModoAmigos{
         }
         turnoX = true;
     }
+
     //Armazenar o nome e a pontuação para bancoJogo.java
     public void armazenarPontuacaoX(String nome_Amigos1, int pontuacao){
         pontuacao = pontuacao * 100;
+        Math.abs(pontuacao);
         File arquivo = new File("C:\\Users\\henry\\OneDrive\\Documentos\\GitHub\\Jogo-da-Velha-Java\\Banco_de_dados.txt");
         try{
             BufferedReader br = new BufferedReader(new FileReader(arquivo));
@@ -156,8 +177,10 @@ public class ModoAmigos{
             e.printStackTrace();
         }
     }
+
     public void armazenarPontuacaoY(String nome_Amigos2, int pontuacao){
         pontuacao = pontuacao * 100;
+        Math.abs(pontuacao);
         File arquivo = new File("C:\\Users\\henry\\OneDrive\\Documentos\\GitHub\\Jogo-da-Velha-Java\\Banco_de_dados.txt");
         try{
             BufferedReader br = new BufferedReader(new FileReader(arquivo));
@@ -185,6 +208,7 @@ public class ModoAmigos{
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) {
         new ModoAmigos();
     }

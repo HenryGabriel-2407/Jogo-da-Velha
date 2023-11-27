@@ -24,10 +24,11 @@ public class ModoOtaku{
     JFrame frame;
     JPanel panel;
     boolean turnoX = true;
-    int pontuacao = 9;
+    int pontuacao = 10;
     String nome__otaku;
     JButton patos[] = new JButton[9];
-
+    Random random = new Random();
+    int jogadaComputador;
     ModoOtaku(){
         //Criar a janela e barra de menu
         nome__otaku = JOptionPane.showInputDialog(null, "Digite o seu nome Naruto:");
@@ -63,6 +64,7 @@ public class ModoOtaku{
             }
         });
         //Jogadas
+        
         for (int i = 0; i < 9; i++) {
             patos[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e){
@@ -70,16 +72,30 @@ public class ModoOtaku{
                     if(turnoX){
                         pato.setText("X");
                         pato.setEnabled(false);
-                        turnoX = !turnoX;
-                        pontuacao--;
-                        if(verificarJogo() == true && turnoX == false){
+                    } else{
+                        do {
+                            jogadaComputador = random.nextInt(9);
+                        } while (!patos[jogadaComputador].isEnabled());
+                        patos[jogadaComputador].setText("O");
+                        patos[jogadaComputador].setEnabled(false);
+                    }
+                    turnoX = !turnoX;
+                    pontuacao--;
+                    if(verificarJogo() || verificarColuna()){
+                        if(turnoX == false){
                             JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao * 100+" pontos!");
                             armazenarPontuacao(nome__otaku, pontuacao);
-                            limpar();
+                        } else{
+                            JOptionPane.showMessageDialog(frame, "Computador ganhou!");
                         }
-                    } else{
-                        jogadaComputador();
+                        limpar();
+                    }else if (empate >= 10){
+                        JOptionPane.showMessageDialog(frame, "Empatou! Recebe 100 pontos!");
+                        pontuacao = 1;
+                        armazenarPontuacao(nome__otaku, pontuacao);
+                        limpar();
                     }
+                    
                 }
             });
         }
@@ -89,42 +105,39 @@ public class ModoOtaku{
         frame.setJMenuBar(menu);
         frame.add(panel, BorderLayout.CENTER);
     }     
-    //Lógica das jogadas do computador através de números aleatórios
-    public void jogadaComputador(){
-        Random random = new Random();
-        int jogadaComputador;
-        do {
-            jogadaComputador = random.nextInt(9);
-        } while (!patos[jogadaComputador].isEnabled());
-        patos[jogadaComputador].setText("O");
-        patos[jogadaComputador].setEnabled(false);
-        turnoX = !turnoX;
-        pontuacao--;
-        if(verificarJogo() == true && turnoX == true){
-            JOptionPane.showMessageDialog(frame, "Computador ganhou!");
-            limpar();
-        }
-    }
 
     public boolean verificarJogo(){
         //verificar linha
-        for(int i = 0; i < 9; i+=3){
+        for(int i = 0; i < 9; i += 3){
             if(patos[i].getText().equals(patos[i+1].getText()) && patos[i].getText().equals(patos[i+2].getText()) && !patos[i].isEnabled()){
+                limpar();
                 return true;
             }
-        }
-        //verificar coluna
-        for(int i = 0; i < 9; i++){
+        //verificar diagonal principal
+            else if (patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
+                limpar();
+                return true;
+            } 
+        // verificar diagonal secundária
+            else if (patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
+                limpar();
+                return true;
+            }
+            else{
+                return false;
+            }            
+        } //verificar coluna
+        return false;
+    }
+    public boolean verificarColuna(){
+        for (int i = 0; i < 9; i++) {
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
+                limpar();
                 return true;
             }
-        }
-        //verficar diagonais
-        if (!patos[0].getText().equals(" ") && patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
-            return true;
-        } 
-        if (!patos[2].getText().equals(" ") && patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
-            return true;
+            else{
+                return false;
+            }
         }
         return false;
     }
@@ -133,6 +146,7 @@ public class ModoOtaku{
             patos[i].setEnabled(true);
             patos[i].setText(" ");
             turnoX = true;
+            pontuacao = 10;
         }
     }
     public void armazenarPontuacao(String nome__otaku, int pontuacao){

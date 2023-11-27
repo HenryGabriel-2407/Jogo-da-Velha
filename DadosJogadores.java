@@ -27,6 +27,7 @@ public class DadosJogadores{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 700);
         frame.setVisible(true);
+
         // Barra de menu e seu comportamento
         JMenuBar menu = new JMenuBar();
         JMenu fileJMenu = new JMenu("Menu");
@@ -43,6 +44,7 @@ public class DadosJogadores{
                 frame.dispose();
             }
         });
+
         // Cria a tabela
         String[] colunas = {"Nome", "Pontuação"};
         model = new DefaultTableModel();
@@ -58,6 +60,7 @@ public class DadosJogadores{
         panel.add(scrollPane);
         frame.add(panel);
     }
+
     public void pegarDados() {
         File arquivo = new File("C:\\Users\\henry\\OneDrive\\Documentos\\GitHub\\Jogo-da-Velha-Java\\Banco_de_dados.txt");
         try {
@@ -72,6 +75,7 @@ public class DadosJogadores{
             e.printStackTrace();
         }
     }
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
