@@ -38,6 +38,7 @@ public class DadosJogadores{
                 System.exit(0);
             }
         }); 
+        // vai para JogoDaVelhaInterface
         inicio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new JogoDaVelhaInterface();
@@ -53,6 +54,7 @@ public class DadosJogadores{
         JScrollPane scrollPane = new JScrollPane(tabela);
         pegarDados();
 
+        // montagem do JFrame
         fileJMenu.add(inicio);
         fileJMenu.add(sair);
         menu.add(fileJMenu);

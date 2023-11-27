@@ -1,4 +1,3 @@
-//  O que falta: Mensagem que o jogador ganhou;
 // importação
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -37,7 +36,6 @@ public class ModoOtaku{
         JMenu fileJMenu = new JMenu("Menu");
         JMenuItem inicio = new JMenuItem("Tela inicial");
         JMenuItem sair = new JMenuItem("Sair");
-
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600, 600);
         frame.setVisible(true);
@@ -122,10 +120,10 @@ public class ModoOtaku{
             else if (patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
                 return true;
             }          
-        } //verificar coluna
+        } 
         return false;
     }
-    public boolean verificarColuna(){
+    public boolean verificarColuna(){//verificar coluna
         for (int i = 0; i < 3; i++) {
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
                 return true;
@@ -143,6 +141,7 @@ public class ModoOtaku{
         }
         return todosPreenchidos && !verificarColuna() && !verificarJogo();
     }
+    //limpar os botões para uma nova partida
     public void limpar(){
         for(int i=0; i<9; i++) {
             patos[i].setEnabled(true);
@@ -150,6 +149,7 @@ public class ModoOtaku{
         }
         turnoX = true;
     }
+    //Armazenar o nome e a pontuação para DadosJogadas.java
     public void armazenarPontuacao(String nome__otaku, int pontuacao){
         pontuacao = pontuacao * 100;
         File arquivo = new File("C:\\Users\\henry\\OneDrive\\Documentos\\GitHub\\Jogo-da-Velha-Java\\Banco_de_dados.txt");
@@ -158,7 +158,7 @@ public class ModoOtaku{
             String linha;
             StringBuilder conteudo = new StringBuilder();
             boolean nomeEncontrado = false;
-            while((linha = br.readLine()) != null){
+            while((linha = br.readLine()) != null){//procura se o nome do jogador já existe para adicionar a pontuação
                 if(linha.startsWith(nome__otaku + ",")){
                     nomeEncontrado = true;
                     String[] partes = linha.split(",");
@@ -169,6 +169,7 @@ public class ModoOtaku{
                 conteudo.append(linha).append("\n");
             }
             br.close();
+            // se o nome ainda não existe
             if (!nomeEncontrado) {
                 conteudo.append(nome__otaku).append(",").append(pontuacao).append("\n");
             }

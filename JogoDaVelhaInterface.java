@@ -26,7 +26,7 @@ public class JogoDaVelhaInterface implements ActionListener{
                 new DadosJogadores();
                 frame.dispose();
             }
-        }); // vai ao BancoJDV
+        }); // vai ao DadosJogadores
 
         panel.setSize(500, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // opção para fechar o programa
