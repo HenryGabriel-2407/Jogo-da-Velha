@@ -1,4 +1,3 @@
-//  O que falta: verificar empate; E mensagem que amigo1 ganhou;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,12 +56,15 @@ public class ModoAmigos{
                     JButton pato = (JButton) e.getSource();
                     if(turnoX){
                         pato.setText("X");
+                        pato.setEnabled(false);
+                        turnoX = !turnoX;
+                        pontuacao--;
                     } else{
                         pato.setText("O");
+                        pato.setEnabled(false);
+                        turnoX = !turnoX;
+                        pontuacao--;
                     } 
-                    pato.setEnabled(false);
-                    turnoX = !turnoX;
-                    pontuacao--;
                     if (verificarJogo() || verificarColuna()){
                         if(!turnoX){
                             JOptionPane.showMessageDialog(frame, nome_Amigo1 + " venceu a partida!!! Ganhou "+pontuacao*100+" pontos!!");
@@ -96,17 +98,14 @@ public class ModoAmigos{
         //verificar linha
         for(int i = 0; i < 9; i += 3){
             if(patos[i].getText().equals(patos[i+1].getText()) && patos[i].getText().equals(patos[i+2].getText()) && !patos[i].isEnabled()){
-                limpar();
                 return true;
             }
         //verificar diagonal principal
             else if (patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
-                limpar();
                 return true;
             } 
         // verificar diagonal secundária
             else if (patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
-                limpar();
                 return true;
             }          
         } //verificar coluna
@@ -115,24 +114,20 @@ public class ModoAmigos{
     public boolean verificarColuna(){
         for (int i = 0; i < 3; i++) {
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
-                limpar();
                 return true;
             }
         }
         return false;
     }
     public boolean verificarEmpate(){
-        int cont = 0;
+        boolean todosPreenchidos = true; 
         for (int i = 0; i < 9; i++) {
-            if (!patos[i].isEnabled()) {
-                cont++;
-            }
-            if(cont >= 8){
-                cont = 0;
-                return true;
+            if (patos[i].isEnabled()) {
+                todosPreenchidos = false;
+                break;
             }
         }
-        return false;
+        return todosPreenchidos && !verificarColuna() && !verificarJogo();
     }
     public void limpar(){
         for(int i=0; i<9; i++) {

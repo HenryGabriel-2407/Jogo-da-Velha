@@ -1,5 +1,5 @@
 João,20
 Henry,6504
-Peixe,20900
+Peixe,22100
 Kaio,400
-Lagosta,10400
+Lagosta,11300
