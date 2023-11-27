@@ -1,4 +1,4 @@
-//  O que falta: verificar diagonais e empate; 
+//  O que falta: verificar empate; 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ public class ModoAmigos{
     JPanel panel;
     boolean turnoX = true;
     JButton patos[] = new JButton[9];
-    int pontuacao = 9;
+    int pontuacao = 10;
     String nome_Amigo1, nome_Amigo2;
     ModoAmigos(){
         nome_Amigo1 = JOptionPane.showInputDialog(null, "Digite o seu nome, jogador X:");
@@ -64,7 +64,7 @@ public class ModoAmigos{
                     turnoX = !turnoX;
                     pontuacao--;
                     if (verificarJogo() || verificarColuna()){
-                        if(turnoX == true){
+                        if(turnoX){
                             JOptionPane.showMessageDialog(frame, nome_Amigo1 + " venceu a partida!!! Ganhou "+pontuacao*100+" pontos!!");
                             armazenarPontuacaoX(nome_Amigo1, pontuacao);
                         } else {
@@ -145,7 +145,6 @@ public class ModoAmigos{
         }
         turnoX = true;
     }
-
     //Armazenar o nome e a pontuação para bancoJogo.java
     public void armazenarPontuacaoX(String nome_Amigos1, int pontuacao){
         pontuacao = pontuacao * 100;
@@ -177,7 +176,6 @@ public class ModoAmigos{
             e.printStackTrace();
         }
     }
-
     public void armazenarPontuacaoY(String nome_Amigos2, int pontuacao){
         pontuacao = pontuacao * 100;
         Math.abs(pontuacao);
@@ -208,7 +206,6 @@ public class ModoAmigos{
             e.printStackTrace();
         }
     }
-
     public static void main(String[] args) {
         new ModoAmigos();
     }

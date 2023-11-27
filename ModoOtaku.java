@@ -1,4 +1,4 @@
-//  O que falta: verificar diagonais e empate;
+//  O que falta: verificar empate;
 // importação
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,6 +29,7 @@ public class ModoOtaku{
     JButton patos[] = new JButton[9];
     Random random = new Random();
     int jogadaComputador;
+    int empate = 1;
     ModoOtaku(){
         //Criar a janela e barra de menu
         nome__otaku = JOptionPane.showInputDialog(null, "Digite o seu nome Naruto:");
@@ -81,21 +82,23 @@ public class ModoOtaku{
                     }
                     turnoX = !turnoX;
                     pontuacao--;
+                    empate++;
+                    
                     if(verificarJogo() || verificarColuna()){
-                        if(turnoX == false){
+                        if(turnoX){
                             JOptionPane.showMessageDialog(frame, "Parabéns "+nome__otaku+". Você ganhou "+pontuacao * 100+" pontos!");
                             armazenarPontuacao(nome__otaku, pontuacao);
-                        } else{
+                        } else if(!turnoX){
                             JOptionPane.showMessageDialog(frame, "Computador ganhou!");
                         }
+                        pontuacao = 10;
                         limpar();
-                    }else if (empate >= 10){
-                        JOptionPane.showMessageDialog(frame, "Empatou! Recebe 100 pontos!");
-                        pontuacao = 1;
-                        armazenarPontuacao(nome__otaku, pontuacao);
+                    } else if(verificarEmpate()){
+                        JOptionPane.showMessageDialog(frame, "Empate! Você ganhou 100 pontos!");
+                        armazenarPontuacao(nome__otaku, 1);
+                        pontuacao = 10;
                         limpar();
                     }
-                    
                 }
             });
         }
@@ -135,8 +138,18 @@ public class ModoOtaku{
                 limpar();
                 return true;
             }
-            else{
-                return false;
+        }
+        return false;
+    }
+    public boolean verificarEmpate(){
+        int cont = 0;
+        for (int i = 0; i < 9; i++) {
+            if (!patos[i].isEnabled()) {
+                cont++;
+            }
+            if(cont >= 8 && verificarColuna() == false && verificarJogo() == false){
+                cont = 0;
+                return true;
             }
         }
         return false;
@@ -144,10 +157,9 @@ public class ModoOtaku{
     public void limpar(){
         for(int i=0; i<9; i++) {
             patos[i].setEnabled(true);
-            patos[i].setText(" ");
-            turnoX = true;
-            pontuacao = 10;
+            patos[i].setText(" "); 
         }
+        turnoX = true;
     }
     public void armazenarPontuacao(String nome__otaku, int pontuacao){
         pontuacao = pontuacao * 100;
