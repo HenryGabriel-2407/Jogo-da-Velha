@@ -112,17 +112,14 @@ public class ModoOtaku{
         //verificar linha
         for(int i = 0; i < 9; i += 3){
             if(patos[i].getText().equals(patos[i+1].getText()) && patos[i].getText().equals(patos[i+2].getText()) && !patos[i].isEnabled()){
-                limpar();
                 return true;
             }
         //verificar diagonal principal
             else if (patos[0].getText().equals(patos[4].getText()) && patos[0].getText().equals(patos[8].getText()) && !patos[0].isEnabled()) {
-                limpar();
                 return true;
             } 
         // verificar diagonal secundária
             else if (patos[2].getText().equals(patos[4].getText()) && patos[2].getText().equals(patos[6].getText()) && !patos[2].isEnabled()) {
-                limpar();
                 return true;
             }          
         } //verificar coluna
@@ -131,7 +128,6 @@ public class ModoOtaku{
     public boolean verificarColuna(){
         for (int i = 0; i < 3; i++) {
             if(patos[i].getText().equals(patos[i+3].getText()) && patos[i].getText().equals(patos[i+6].getText()) && !patos[i].isEnabled()){
-                limpar();
                 return true;
             }
         }
